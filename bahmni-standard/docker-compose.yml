@@ -78,6 +78,7 @@ services:
 
   odoo:
     profiles: ["odoo","bahmni-standard"]
+    platform: linux/arm64
     image: 'bahmni/odoo-16:${ODOO_IMAGE_TAG:?[ERROR]}'
     ports:
       - '8069:8069'
@@ -120,6 +121,7 @@ services:
 
   odoo-connect:
     profiles: ["odoo","bahmni-standard"]
+    platform: linux/arm64
     image: 'bahmni/odoo-connect:${ODOO_CONNECT_IMAGE_TAG:?[ERROR]}'
     environment:
       TZ: ${TZ}
@@ -148,6 +150,7 @@ services:
 #Serivces for odoo-10. These services are used for backward compatibility with bahmni 0.93
   odoo-10:
     profiles: ["odoo-10"]
+    platform: linux/arm64
     image: 'bahmni/odoo-10:${ODOO_IMAGE_TAG:?[ERROR]}'
     ports:
       - '8070:8069'
@@ -169,6 +172,7 @@ services:
 
   odoo-10-db:
     profiles: ["odoo-10"]
+    platform: linux/arm64
     image: '${ODOO_10_DB_IMAGE_NAME:?[ERROR]}'
     volumes:
       - '${ODOO_10_DB_DUMP_PATH}:/resources/db-dump'
@@ -295,6 +299,7 @@ services:
       - 'metabase-data:/var/lib/postgresql/data'
 
   metabase:
+    platform: linux/arm64
     image: bahmni/bahmni-metabase:${METABASE_IMAGE_TAG:?}
     restart: on-failure:[3]
     profiles: ["metabase", "bahmni-mart"]
@@ -407,7 +412,7 @@ services:
     restart: ${RESTART_POLICY}
 
   reportsdb:
-    platform: linux/amd64
+    platform: linux/arm64
     image: ${REPORTS_DB_IMAGE_NAME:?}
     profiles: ["reports","bahmni-standard"]
     environment:
@@ -498,6 +503,7 @@ services:
     restart: ${RESTART_POLICY}
 
   pacs-simulator:
+    platform: linux/arm64
     image: bahmni/pacs-simulator:${PACS_SIMULATOR_IMAGE_TAG:?}
     profiles: ["pacs-simulator"]
     environment:
@@ -516,6 +522,7 @@ services:
 
 
   atomfeed-console:
+    platform: linux/arm64
     image: bahmni/atomfeed-console:${ATOMFEED_CONSOLE_IMAGE_TAG:?}
     profiles: ["atomfeed-console"]
     restart: ${RESTART_POLICY}
@@ -553,6 +560,7 @@ services:
       - 'sms-token:/opt/tokens'
 
   restore_volumes:
+    platform: linux/arm64
     image: bash:5.2.15
     profiles: ["restore"]
     command: "bash /restore_docker_volumes.sh"
